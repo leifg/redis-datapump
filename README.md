@@ -1,6 +1,6 @@
 # Redis::Datapump
 
-TODO: Write a gem description
+This tool let's you import and export single databases 
 
 ## Installation
 

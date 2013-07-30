@@ -6,11 +6,12 @@ require 'redis/datapump/version'
 Gem::Specification.new do |spec|
   spec.name          = 'redis-datapump'
   spec.version       = Redis::Datapump::VERSION
+  spec.platform      = Gem::Platform::RUBY
   spec.authors       = ['Leif Gensert']
-  spec.email         = ['TODO: Write your email address']
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ''
+  spec.email         = ['leif@propertybase.com']
+  spec.description   = %q{Tool for Importing and Exporting data from/to redis}
+  spec.summary       = %q{This tool is similar to `redis-dump` but is also working with JRuby}
+  spec.homepage      = 'http://www.github.com/leifg/redis-datapump'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
@@ -19,5 +20,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.3'
-  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rake', '~> 10.1'
 end

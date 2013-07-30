@@ -1,4 +1,4 @@
-require "redis/datapump/version"
+require 'redis/datapump/version'
 
 module Redis
   module Datapump
