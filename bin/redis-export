@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'redis-datapump'
+
+options = {
+  redis_url: 'redis://localhost:6379',
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: redis-export [options]"
+
+  opts.on('-u', '--uri=URI', 'Redis URI in format redis://hostname[:port]') do |u|
+    options[:redis_url] = u
+  end
+
+  opts.on('-d', '--database=DB', 'Redis database to export') do |d|
+    options[:redis_database] = d
+  end
+end.parse!
+
+output = Redis::Datapump::Exporter.new(options).export
+$stdout.puts "The output: #{output.inspect}"
