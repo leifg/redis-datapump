@@ -11,17 +11,17 @@ module RedisDatapump
     def initialize redis_client, key
       @redis_client = redis_client
       @key = key
-      @type = @redis_client.type(key)
-      @ttl = @redis_client.pttl(key)
-      @value = VALUE_MAP[@type].call(@redis_client, @key)
     end
 
     def content
-      {
+      return @content if @content
+
+      type = @redis_client.type(@key)
+      @content = {
         key: @key,
-        type: @type,
-        value: @value,
-        ttl: @ttl,
+        type: type,
+        value: VALUE_MAP[type].call(@redis_client, @key),
+        ttl: @redis_client.pttl(@key),
       }
     end
   end

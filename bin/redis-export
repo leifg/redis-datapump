@@ -20,6 +20,10 @@ OptionParser.new do |opts|
   end
 end.parse!
 
+json_engine = RUBY_PLATFORM == 'java' ? :jr_jackson : :yajl
+
+MultiJson.use json_engine
+
 RedisDatapump::Exporter.new(options).export do |value|
   $stdout.puts MultiJson.dump(value, pretty: false)
 end

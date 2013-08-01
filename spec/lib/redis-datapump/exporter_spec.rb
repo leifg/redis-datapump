@@ -3,11 +3,20 @@ require 'spec_helper'
 
 describe RedisDatapump::Exporter do
   subject do 
-    described_class.new({
+    exporter = described_class.new({
       redis_url: 'redis://localhost:6379',
       redis_database: '0',
     })
+    exporter.stub(:redis_client).and_return(mock_redis)
+    exporter
   end
+
+  let(:mock_redis) do
+    mr = MockRedis.new
+    mr.stub(:pttl).and_return(-1)
+    mr
+  end
+
   describe 'export' do
     it 'calls keys' do
       expect(subject)
@@ -15,14 +24,9 @@ describe RedisDatapump::Exporter do
       subject.export
     end
 
-    it 'checks type' do
-      expect(subject)
-        .to receive(:keys).and_return(%w{string set}).ordered
-      expect(subject)
-        .to receive(:type).with('string').and_return('string').ordered
-      expect(subject)
-        .to receive(:type).with('set').and_return('set').ordered
-      subject.export
+    it 'yields the content' do
+      mock_redis.set('string_key', 'string_value')
+      expect{|b| subject.export(&b)}.to yield_control.once
     end
   end
 end
