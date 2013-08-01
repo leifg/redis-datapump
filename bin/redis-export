@@ -2,6 +2,7 @@
 
 require 'optparse'
 require 'redis-datapump'
+require 'multi_json'
 
 options = {
   redis_url: 'redis://localhost:6379',
@@ -19,5 +20,6 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-output = Redis::Datapump::Exporter.new(options).export
-$stdout.puts "The output: #{output.inspect}"
+RedisDatapump::Exporter.new(options).export do |value|
+  $stdout.puts MultiJson.dump(value, pretty: false)
+end

@@ -19,9 +19,20 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'redis', '~> 3.0'
+  spec.add_dependency 'multi_json', '~> 1.7'
+  spec.add_dependency 'json'
+
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake', '~> 10.1'
-  spec.add_development_dependency 'redis', '~> 3.0'
+
+  if RUBY_PLATFORM == 'java'
+    spec.add_dependency 'gson'
+    spec.add_dependency 'jrjackson'
+  else
+    spec.add_dependency 'oj'
+    spec.add_dependency 'yajl-ruby'
+  end
 
   spec.add_development_dependency 'rspec', '~> 2.14'
 end

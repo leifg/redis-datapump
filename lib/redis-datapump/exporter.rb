@@ -10,10 +10,10 @@ module RedisDatapump
       @redis_client = Redis.connect(url: url)
     end
 
-    def export
+    def export &blk
       Validator.new(@options).validate!
       keys('*').each do |key|
-        type = type(key)
+        blk.call(ValueExtractor.new(redis_client, key).content)
       end
     end
 
