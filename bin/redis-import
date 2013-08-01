@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'redis-datapump'
+require 'multi_json'
+
+options = {
+  redis_url: 'redis://localhost:6379',
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: redis-export [options]"
+
+  opts.on('-u', '--uri=URI', 'Redis URI in format redis://hostname[:port]') do |u|
+    options[:redis_url] = u
+  end
+
+  opts.on('-d', '--database=DB', 'Redis database to export') do |d|
+    options[:redis_database] = d
+  end
+end.parse!
+
+json_engine = RUBY_PLATFORM == 'java' ? :jr_jackson : :yajl
+
+MultiJson.use json_engine
+
+importer = RedisDatapump::Importer.new(options)
+ARGF.each do |line|
+  importer.import(MultiJson.load(line))
+end
