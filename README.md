@@ -1,6 +1,6 @@
 # Redis::Datapump
 
-This tool let's you export and import redis database into a json format.
+This tool lets you export and import redis database into a json format.
 
 It is loosely based on [redis-dump](http://github.com/delano/redis-dump).
 
