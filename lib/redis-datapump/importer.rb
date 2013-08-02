@@ -4,7 +4,7 @@ module RedisDatapump
       'string' => proc {|client, key, value| client.set(key, value)},
       'hash' => proc {|client, key, values| client.hmset(key, values)},
       'set' => proc {|client, key, members| client.sadd(key, members)},
-      'list' => proc {|client, key| client.lrange key, 0, -1 },
+      'list' => proc {|client, key, values| client.rpush key, values },
       'zset' => proc {|client, key| client.zrange(key, 0, -1, :with_scores => true) },
     }
     def initialize opts
