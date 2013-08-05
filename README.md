@@ -1,5 +1,7 @@
 # Redis::Datapump
 
+[![Build Status](https://travis-ci.org/leifg/redis-datapump.png?branch=master)](https://travis-ci.org/leifg/redis-datapump) [![Coverage Status](https://coveralls.io/repos/leifg/redis-datapump/badge.png?branch=master)](https://coveralls.io/r/leifg/redis-datapump) [![Code Climate](https://codeclimate.com/github/leifg/redis-datapump.png)](https://codeclimate.com/github/leifg/redis-datapump) [![Dependency Status](https://gemnasium.com/leifg/redis-datapump.png)](https://gemnasium.com/leifg/redis-datapump) [![Gem Version](https://badge.fury.io/rb/redis-datapump.png)](http://badge.fury.io/rb/executrix)
+
 This tool lets you export and import redis database into a json format.
 
 It is loosely based on [redis-dump](http://github.com/delano/redis-dump).
